@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/ur/metadata-cache'
+require File.dirname(__FILE__) + '/ur/metadata_cache'
 require File.dirname(__FILE__) + '/ur/product'
 
 module UR
