@@ -2,8 +2,9 @@ Gem::Specification.new do |s|
   s.name          = "ur-product"
   s.version       = "0.1"
   s.date          = "2010-04-20"
-  s.summary       = "Retrieve products from the Utbildningsradion Metadata Cache"
-  s.description   = "Wraps the Utbildningsradion Metadata Cache API"
+  s.summary       = "Handles searching and population of Utbildningsradion products"
+  s.description   = "Wraps the two services http://metadata.ur.se/ and" + 
+                    " http://services.ur.se/search/"
   s.has_rdoc      = false
   s.email         = "peter@c7.se"
   s.homepage      = "http://metadata.ur.se/"
