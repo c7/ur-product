@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.name          = "ur-product"
   s.version       = "0.1"
   s.date          = "2010-04-20"
-  s.summary       = "Handles searching and population of Utbildningsradion products"
+  s.summary       = "Utbildningsradion product search and metadata retrieval"
   s.description   = "Wraps the two services http://metadata.ur.se/ and" + 
                     " http://services.ur.se/search/"
   s.has_rdoc      = false
