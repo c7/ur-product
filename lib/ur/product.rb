@@ -1,5 +1,5 @@
 # Module for Utbildningsradion AB (http://ur.se/)
-module UR  
+module UR
   # A product can be a tv show, a radio program or even a website
   class Product
     # Setup
@@ -26,6 +26,10 @@ module UR
       
       (data.instance_of?(Array)) ? 
         data.map { |d| Product.new(d) } : Product.new(data)
+    end
+    
+    def self.search(solr_params)
+      UR::Search.new(solr_params)
     end
     
     def self.define_boolean_methods(names)
