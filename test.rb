@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'lib/ur-product'
 
-search = UR::Search.search({
+results = UR::Product.search({
   :queries => 'samtid',
   :filter => { :search_product_type => 'programtv' },
   :page => 1,
@@ -9,16 +9,16 @@ search = UR::Search.search({
   :publicstreaming => 'NOW'
 })
 
-if search.ok?
-  puts "Sökning: #{search.solr.params.inspect}\n\n"
+if results.ok?
+  puts "Sökning: #{results.solr.params.inspect}\n\n"
   
-  search.products.map { |p| puts p.title }
+  results.products.map { |p| puts p.title }
   
-  puts "\nFöregående sida: #{search.previous_page}"
-  puts "Nästa sida: #{search.next_page}"
-  puts "\nAntal träffar: #{search.numFound}\n"
+  puts "\nFöregående sida: #{results.previous_page}"
+  puts "Nästa sida: #{results.next_page}"
+  puts "\nAntal träffar: #{results.numFound}\n"
   
-  search.facets.each_pair do |name, items|
+  results.facets.each_pair do |name, items|
     puts "\nFacett: #{name}"
     items.each do |item|
       puts " - #{item.value} => #{item.hits}"
