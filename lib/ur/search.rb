@@ -24,7 +24,7 @@ module UR
       @solr.facets.map { |f| @facets[f.name] = f.items } if @solr.facets.size > 0
     end
     
-    def numFound
+    def num_found
       @solr.response['numFound'].to_i
     end
     
@@ -38,10 +38,6 @@ module UR
     
     def next_page
       @solr.docs.next_page
-    end
-
-    def self.search(solr_params)
-      UR::Search.new(solr_params)
     end
   end
 end
