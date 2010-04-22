@@ -2,10 +2,11 @@ require 'rubygems'
 require 'lib/ur-product'
 
 search = UR::Search.search({
-  :queries => 'istiden',
+  :queries => 'samtid',
   :filter => { :search_product_type => 'programtv' },
   :page => 1,
-  :per_page => 5
+  :per_page => 5,
+  :publicstreaming => 'NOW'
 })
 
 if search.ok?
