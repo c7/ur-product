@@ -2,12 +2,11 @@ Gem::Specification.new do |s|
   s.name          = "ur-product"
   s.version       = "0.1"
   s.date          = "2010-04-22"
-  s.summary       = "Utbildningsradion product search and metadata retrieval"
-  s.description   = "Wraps the two services http://metadata.ur.se/ and" + 
-                    " http://services.ur.se/search/"
+  s.summary       = "API wrapper for the Utbildningsradion product services"
+  s.description   = "Enables searching and fetching of Utbildningsradion products"
   s.has_rdoc      = false
   s.email         = "peter@c7.se"
-  s.homepage      = "http://metadata.ur.se/"
+  s.homepage      = "http://github.com/c7/ur-product"
   s.authors       = ["Peter Hellberg"]
   s.licenses      = "MIT-LICENSE"
   
@@ -21,6 +20,9 @@ Gem::Specification.new do |s|
   ]
   
   s.rubyforge_project = "ur-product"
+  
   s.add_dependency('json', '>= 1.2.3')
+  s.add_dependency('rsolr', '>= 0.12.1')
+  s.add_dependency('rsolr-ext', '>= 0.12.0')
   s.add_dependency('rest-client', '>= 1.4.2')
 end
