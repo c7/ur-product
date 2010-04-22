@@ -2,6 +2,8 @@
 module UR  
   # A product can be a tv show, a radio program or even a website
   class Product
+    # Setup
+    ASSETS_URL = 'http://assets.ur.se'
     attr_accessor :related_products,
                   :ur_product_id, :title, :language, 
                   :description, :easy_to_read_description,
@@ -90,6 +92,19 @@ module UR
           self.class.define_relation_accessor(name)
         end
       end
+    end
+
+    def has_image?
+      return @has_image if !@has_image.nil?
+      
+      begin
+        url = "#{ASSETS_URL}/id/#{ur_product_id}/images/1.jpg"
+        @has_image = (RestClient.head(url).headers[:x_ur_http_status] == "200")
+      rescue RestClient::ResourceNotFound
+        @has_image = false
+      end
+      
+      @has_image
     end
 
     def has_relations?

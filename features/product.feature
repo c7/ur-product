@@ -20,3 +20,8 @@ Feature: UR Product
     When I get the products
     Then the result should contain 2 products
     And the second product should have the title "Vetenskapslandet"
+  
+  Scenario: Check if a product has an image
+    Given I want the product 100001
+    When I get the product
+    Then it should have image
