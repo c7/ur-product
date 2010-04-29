@@ -16,7 +16,7 @@ if results.ok?
   
   puts "\nFöregående sida: #{results.previous_page}"
   puts "Nästa sida: #{results.next_page}"
-  puts "\nAntal träffar: #{results.numFound}\n"
+  puts "\nAntal träffar: #{results.num_found}\n"
   
   results.facets.each_pair do |name, items|
     puts "\nFacett: #{name}"
