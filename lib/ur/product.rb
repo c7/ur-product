@@ -11,14 +11,15 @@ module UR
                   :maintitle, :remainderoftitle, :producingcompany,
                   :created, :modified, :format, :duration, :aspect_ratio,
                   :product_type, :product_sub_type, :typical_age_range, 
-                  :pubdate
+                  :pubdate, :storages, :distribution_events
     
     def initialize(data)
       product_data = data.include?('product') ? data['product'] : data
       relations = data.include?('relations') ? data['relations'] : []
       populate(product_data, relations)
       
-      self.class.define_boolean_methods(['siblings'])
+      self.class.define_boolean_methods(['distribution_events', 'storages'])
+      self.class.define_relation_boolean_methods(['siblings'])
     end
     
     def self.find(id)
@@ -33,6 +34,15 @@ module UR
     end
     
     def self.define_boolean_methods(names)
+      names.each do |name|
+        define_method("has_#{name}?") do
+          instance_variable = instance_variable_get("@#{name}")            
+          (!instance_variable.nil? || !instance_variable.empty?)
+        end
+      end
+    end
+    
+    def self.define_relation_boolean_methods(names)
       names.each do |name|
         define_method("has_#{name}?") do
           related_products = instance_variable_get("@related_products")
@@ -82,6 +92,16 @@ module UR
         self.send("#{field_names.call(field)}=", value)
       end
       
+      # Handle the data structures
+      [
+        ['distributionevent', 'distribution_events', DistributionEvent],
+        ['storage', 'storages', Storage]
+      ].each do |name, accessor, structure_class|
+        data = product_data[name]
+        self.send("#{accessor}=", (!data.nil? && data.size > 0) ? 
+                                    data.map { |d| structure_class.new d } : [])
+      end
+  
       # Handle the relations
       if relations.size > 0
         @related_products = {}
