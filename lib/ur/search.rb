@@ -6,7 +6,7 @@ module UR
   class Search
     # Setup
     SEARCH_SERVICE_URL = 'http://services.ur.se/search'
-    attr_accessor :products, :solr, :facets
+    attr_reader :products, :solr, :facets
     
     def initialize(solr_params)
       solr = RSolr.connect :url => SEARCH_SERVICE_URL

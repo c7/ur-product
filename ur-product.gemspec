@@ -11,14 +11,18 @@ Gem::Specification.new do |s|
   s.licenses      = "MIT-LICENSE"
   
   s.files         = [
+    "README.markdown",
+    "Rakefile",
+    "MIT-LICENSE",
     "lib/ur-product.rb",
     "lib/ur/metadata_cache.rb",
     "lib/ur/product.rb",
     "lib/ur/product/distribution_event.rb",
     "lib/ur/product/storage.rb",
     "lib/ur/search.rb",
-    "MIT-LICENSE", 
-    "README.markdown"
+    "features/product.feature",
+    "features/support/env.rb",
+    "features/step_definitions/product_steps.rb"
   ]
   
   s.rubyforge_project = "ur-product"

@@ -4,14 +4,14 @@ module UR
   class Product
     # Setup
     ASSETS_URL = 'http://assets.ur.se'
-    attr_accessor :related_products,
-                  :ur_product_id, :title, :language, 
-                  :description, :easy_to_read_description,
-                  :obsoleteorderid, :status, :productionyear,
-                  :maintitle, :remainderoftitle, :producingcompany,
-                  :created, :modified, :format, :duration, :aspect_ratio,
-                  :product_type, :product_sub_type, :typical_age_range, 
-                  :pubdate, :storages, :distribution_events
+    attr_reader :related_products,
+                :ur_product_id, :title, :language, 
+                :description, :easy_to_read_description,
+                :obsoleteorderid, :status, :productionyear,
+                :maintitle, :remainderoftitle, :producingcompany,
+                :created, :modified, :format, :duration, :aspect_ratio,
+                :product_type, :product_sub_type, :typical_age_range, 
+                :pubdate, :storages, :distribution_events
     
     def initialize(data)
       product_data = data.include?('product') ? data['product'] : data
@@ -89,17 +89,17 @@ module UR
           value = product_data[field][lang]
         end
         
-        self.send("#{field_names.call(field)}=", value)
+        instance_variable_set("@#{field_names.call(field)}", value)
       end
       
       # Handle the data structures
       [
         ['distributionevent', 'distribution_events', DistributionEvent],
         ['storage', 'storages', Storage]
-      ].each do |name, accessor, structure_class|
+      ].each do |name, variable, structure_class|
         data = product_data[name]
-        self.send("#{accessor}=", (!data.nil? && data.size > 0) ? 
-                                    data.map { |d| structure_class.new d } : [])
+        instance_variable_set("@#{variable}", (!data.nil? && data.size > 0) ? 
+          data.map { |d| structure_class.new d } : [])
       end
   
       # Handle the relations
