@@ -2,11 +2,10 @@ require 'rubygems'
 require 'lib/ur-product'
 
 results = UR::Product.search({
-  :queries => 'samtid',
-  :filter => { :search_product_type => 'programtv' },
+  :queries => 'Antarktis',
+  :filters => { :search_product_type => 'programtv' },
   :page => 1,
-  :per_page => 5,
-  :publicstreaming => 'NOW'
+  :per_page => 5
 })
 
 if results.ok?
@@ -23,5 +22,10 @@ if results.ok?
     items.each do |item|
       puts " - #{item.value} => #{item.hits}"
     end
-  end  
+  end
+  
+  p = results.products.first
+  puts "\n\nFörsta produkten: #{p.title} (#{p.ur_product_id})"
+  puts "  -> Distribution: #{p.distribution_events.map { |e| e.platform }.join(', ')}" if p.has_distribution_events?
+  puts "  -> Lagring: #{p.storages.map { |s| s.storage_format }.join(', ')}" if p.has_storages?  
 end
