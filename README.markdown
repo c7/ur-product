@@ -21,7 +21,7 @@ API wrapper for the [Utbildningsradion](http://ur.se) product services.
     require 'ur-product'
     UR::Product.search({
       :queries => 'samtid',
-      :filter => { :search_product_type => 'programtv' },
+      :filters => { :search_product_type => 'programtv' },
       :page => 1,
       :per_page => 5,
       :publicstreaming => 'NOW'
