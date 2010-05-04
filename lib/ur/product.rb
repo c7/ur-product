@@ -7,11 +7,11 @@ module UR
     attr_reader :related_products,
                 :ur_product_id, :title, :language, 
                 :description, :easy_to_read_description,
-                :obsoleteorderid, :status, :productionyear,
-                :maintitle, :remainderoftitle, :producingcompany,
-                :created, :modified, :format, :duration, :aspect_ratio,
+                :obsolete_order_id, :status, :production_year,
+                :main_title, :remainder_of_title, :producing_company,
+                :created_at, :modified_at, :format, :duration, :aspect_ratio,
                 :product_type, :product_sub_type, :typical_age_range, 
-                :pubdate, :storages, :distribution_events
+                :publication_date, :storages, :distribution_events
     
     def initialize(data)
       product_data = data.include?('product') ? data['product'] : data
@@ -68,16 +68,24 @@ module UR
         'created', 'modified', 'pubdate', 
         'format', 'duration', 'aspect_ratio',
         'product_type', 'product_sub_type', 
-        'typical_age_range'
+        'typicalagerange'
       ]
       
       field_names = lambda do |name|
         renamed = { 
-          'id' => 'ur_product_id', 
+          'id' => 'ur_product_id',
+          'maintitle' => 'main_title',
+          'remainderoftitle' => 'remainder_of_title',
           'easytoreaddescription' => 'easy_to_read_description',
-          'typicalagerange' => 'typical_age_range'
+          'producingcompany' => 'producing_company',
+          'created' => 'created_at',
+          'modified' => 'modified_at',
+          'pubdate' => 'publication_date',
+          'obsoleteorderid' => 'obsolete_order_id',
+          'typicalagerange' => 'typical_age_range',
+          'productionyear' => 'production_year'
         }
-        (renamed.include?(name)) ? renamed[name] : name
+        (renamed.keys.include?(name)) ? renamed[name] : name
       end
       
       standard_fields.each do |field|
@@ -87,6 +95,10 @@ module UR
           value = product_data[field]
         elsif !product_data[field].nil?
           value = product_data[field][lang]
+        end
+        
+        if ['pubdate', 'created', 'modified'].include? field
+          value = Time.parse(value)
         end
         
         instance_variable_set("@#{field_names.call(field)}", value)
@@ -118,15 +130,15 @@ module UR
       end
     end
 
-    def image_url(size = '', number = 1)
+    def image_url(number = 1, size = '')
       "#{ASSETS_URL}/id/#{ur_product_id}/images/#{number}#{size}.jpg"
     end
   
-    def has_image?
+    def has_image?(number = 1, size = '')
       return @has_image if !@has_image.nil?
       
       begin
-        url = "#{ASSETS_URL}/id/#{ur_product_id}/images/1.jpg"
+        url = "#{ASSETS_URL}/id/#{ur_product_id}/images/#{number}#{size}.jpg"
         @has_image = (RestClient.head(url).headers[:x_ur_http_status] == "200")
       rescue RestClient::ResourceNotFound
         @has_image = false
