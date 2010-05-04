@@ -118,6 +118,10 @@ module UR
       end
     end
 
+    def image_url(size = '', number = 1)
+      "#{ASSETS_URL}/id/#{ur_product_id}/images/#{number}#{size}.jpg"
+    end
+  
     def has_image?
       return @has_image if !@has_image.nil?
       
