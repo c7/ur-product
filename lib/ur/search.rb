@@ -5,7 +5,10 @@ module UR
   # Search for products and populate from the metadata cache
   class Search
     # Setup
-    SEARCH_SERVICE_URL = 'http://services.ur.se/search'
+    if !defined?(SEARCH_SERVICE_URL)
+      SEARCH_SERVICE_URL = 'http://services.ur.se/search'
+    end
+    
     attr_reader :products, :solr, :facets
     
     def initialize(solr_params)

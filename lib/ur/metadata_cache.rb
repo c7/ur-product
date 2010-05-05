@@ -7,8 +7,10 @@ module UR
   # populating one or more UR::Product objects
   class MetadataCache
     # Setup
-    METADATA_PRODUCT_URL = 'http://metadata.ur.se/products'
-     
+    if !defined?(METADATA_PRODUCT_URL)
+      METADATA_PRODUCT_URL = 'http://metadata.ur.se/products'
+    end
+    
     # Retrieve one or more products
     def self.find(id)
       if id.instance_of?(Array)

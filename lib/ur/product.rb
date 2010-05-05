@@ -2,8 +2,12 @@
 module UR
   # A product can be a tv show, a radio program or even a website
   class Product
+    
     # Setup
-    ASSETS_URL = 'http://assets.ur.se'
+    if !defined?(ASSETS_URL)
+      ASSETS_URL = 'http://assets.ur.se'
+    end
+    
     attr_reader :related_products,
                 :ur_product_id, :title, :language, 
                 :description, :easy_to_read_description,
