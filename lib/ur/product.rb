@@ -122,10 +122,10 @@ module UR
         instance_variable_set("@#{variable}", (!data.nil? && data.size > 0) ? 
           data.map { |d| structure_class.new d } : [])
       end
-  
+      
       # Handle the relations
+      @related_products = {}
       if relations.size > 0
-        @related_products = {}
         @has_relations = true
         relations.each do |name, products|
           @related_products[name] = []
@@ -137,6 +137,28 @@ module UR
           self.class.define_relation_accessor(name)
         end
       end
+    end
+    
+    def documents
+      return @docs unless @docs.nil?
+      @docs = []
+      
+      [
+        'textteacherguide', 
+        'textstudyguide', 
+        'textscript', 
+        'textworksheet',
+        'texttasks', 
+        'texttext'
+      ].each do |name|
+        @docs << @related_products[name] if !@related_products[name].nil?
+      end
+      
+      @docs.flatten!
+    end
+    
+    def has_documents?
+      (documents.size > 0)
     end
     
     def humanized_duration
