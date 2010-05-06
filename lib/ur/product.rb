@@ -134,6 +134,11 @@ module UR
       end
     end
 
+    def full_type
+      broadcast_format = (product_type == 'package') ? "-#{format}" : ''
+      (product_sub_type.nil?) ? product_type : "#{product_type}#{product_sub_type}#{broadcast_format}"
+    end
+    
     def image_url(number = 1, size = '')
       "#{ASSETS_URL}/id/#{ur_product_id}/images/#{number}#{size}.jpg"
     end
