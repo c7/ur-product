@@ -9,12 +9,12 @@ module UR
     end
     
     attr_reader :related_products,
-                :ur_product_id, :title, :language, 
+                :ur_product_id, :title, :languages, 
                 :description, :easy_to_read_description,
                 :obsolete_order_id, :status, :production_year,
                 :main_title, :remainder_of_title, :producing_company,
                 :created_at, :modified_at, :format, :duration, :aspect_ratio,
-                :product_type, :product_sub_type, :typical_age_range, 
+                :product_type, :product_sub_type, :typical_age_ranges, 
                 :publication_date, :storages, :distribution_events
     
     def initialize(data)
@@ -22,7 +22,10 @@ module UR
       relations = data.include?('relations') ? data['relations'] : []
       populate(product_data, relations)
       
-      self.class.define_boolean_methods(['distribution_events', 'storages'])
+      self.class.define_boolean_methods([
+        'distribution_events', 'storages', 'typical_age_ranges', 'languages',
+        'duration', 'difficulty', 'producing_company', 'obsolete_order_id'
+      ])
       self.class.define_relation_boolean_methods(['siblings'])
     end
     
@@ -86,8 +89,9 @@ module UR
           'modified' => 'modified_at',
           'pubdate' => 'publication_date',
           'obsoleteorderid' => 'obsolete_order_id',
-          'typicalagerange' => 'typical_age_range',
-          'productionyear' => 'production_year'
+          'typicalagerange' => 'typical_age_ranges',
+          'productionyear' => 'production_year',
+          'language' => 'languages'
         }
         (renamed.keys.include?(name)) ? renamed[name] : name
       end
