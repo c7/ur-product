@@ -24,7 +24,8 @@ module UR
       
       self.class.define_boolean_methods([
         'distribution_events', 'storages', 'typical_age_ranges', 'languages',
-        'duration', 'difficulty', 'producing_company', 'obsolete_order_id'
+        'duration', 'difficulty', 'producing_company', 'obsolete_order_id',
+        'sab', 'sao'
       ])
       self.class.define_relation_boolean_methods(['siblings'])
     end
