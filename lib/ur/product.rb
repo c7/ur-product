@@ -158,7 +158,7 @@ module UR
     end
     
     def has_documents?
-      (documents.size > 0)
+      (!documents.nil? && documents.size > 0)
     end
     
     def humanized_duration
