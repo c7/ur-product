@@ -44,7 +44,7 @@ module UR
       names.each do |name|
         define_method("has_#{name}?") do
           instance_variable = instance_variable_get("@#{name}")            
-          (!instance_variable.nil? || !instance_variable.empty?)
+          !(instance_variable.nil? || instance_variable.empty?)
         end
       end
     end
