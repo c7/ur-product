@@ -137,6 +137,21 @@ module UR
         end
       end
     end
+    
+    def humanized_duration
+      if matched = duration.match(/^(\d\d):(\d\d):(\d\d)/)
+        (full,h,m,s) = matched.to_a
+        if h == '00'
+          t(:minutes, :count => m.to_i)
+        elsif h == '00' && m == '00'
+          'Under en minut'
+        else
+          "#{h.to_i}:#{m}"
+        end
+      else
+        duration
+      end
+    end
 
     def full_type
       broadcast_format = (product_type == 'package') ? "-#{format}" : ''
