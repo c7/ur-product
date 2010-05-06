@@ -142,7 +142,7 @@ module UR
       if matched = duration.match(/^(\d\d):(\d\d):(\d\d)/)
         (full,h,m,s) = matched.to_a
         if h == '00'
-          t(:minutes, :count => m.to_i)
+          "#{m} minuter"
         elsif h == '00' && m == '00'
           'Under en minut'
         else
