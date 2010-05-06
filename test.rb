@@ -5,7 +5,7 @@ results = UR::Product.search({
   :queries => 'Antarktis',
   :filters => { :search_product_type => 'programtv' },
   :page => 1,
-  :per_page => 5
+  :per_page => 1
 })
 
 if results.ok?
@@ -27,5 +27,6 @@ if results.ok?
   p = results.products.first
   puts "\n\nFörsta produkten: #{p.title} (#{p.ur_product_id})"
   puts "  -> Distribution: #{p.distribution_events.map { |e| e.platform }.join(', ')}" if p.has_distribution_events?
-  puts "  -> Lagring: #{p.storages.map { |s| s.storage_format }.join(', ')}" if p.has_storages?  
+  puts "  -> Lagring: #{p.storages.map { |s| s.storage_format }.join(', ')}" if p.has_storages?
+  puts "  -> Andra stora bilden: #{p.image_url(2, '_l')}" if p.has_image?(2, '_l')
 end
