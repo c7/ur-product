@@ -15,7 +15,7 @@ module UR
                 :main_title, :remainder_of_title, :producing_company,
                 :created_at, :modified_at, :format, :duration, :aspect_ratio,
                 :product_type, :product_sub_type, :typical_age_ranges, 
-                :publication_date, :storages, :distribution_events
+                :publication_date, :storages, :distribution_events, :sab, :sao
     
     def initialize(data)
       product_data = data.include?('product') ? data['product'] : data
@@ -75,7 +75,7 @@ module UR
         'created', 'modified', 'pubdate', 
         'format', 'duration', 'aspect_ratio',
         'product_type', 'product_sub_type', 
-        'typicalagerange'
+        'typicalagerange', 'sab', 'sao'
       ]
       
       field_names = lambda do |name|
