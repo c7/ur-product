@@ -219,7 +219,11 @@ module UR
       if product_type == 'website'
         @url = get_storage_location('url')
       elsif respond_to?(:website)
-        @url = website.first.get_storage_location('url')
+        if website.first.nil?
+          @url = false
+        else
+          @url = website.first.get_storage_location('url')
+        end
       else
         @url = false
       end
