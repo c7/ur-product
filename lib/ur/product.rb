@@ -27,7 +27,7 @@ module UR
         'duration', 'difficulty', 'producing_company', 'obsolete_order_id',
         'sab', 'sao'
       ])
-      self.class.define_relation_boolean_methods(['siblings'])
+      self.class.define_relation_boolean_methods(['siblings', 'packageseries'])
     end
     
     def self.find(id)
