@@ -205,5 +205,28 @@ module UR
     def has_relations?
       (!@related_products.nil? && @related_products.size > 0)
     end
+    
+    def get_storage_location(format)
+      storage = storages.map { |s| s if s.storage_format == format }.compact
+      storage.empty? ? false : storage.first.location
+    end
+    
+    def url
+      return @url unless @url.nil?
+      
+      if product_type == 'website'
+        @url = get_storage_location('url')
+      elsif respond_to?(:website)
+        @url = website.first.get_storage_location('url')
+      else
+        @url = false
+      end
+
+      @url
+    end
+    
+    def has_url?
+      (url)
+    end
   end
 end
