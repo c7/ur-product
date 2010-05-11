@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
     "lib/ur/metadata_cache.rb",
     "lib/ur/product.rb",
     "lib/ur/product/distribution_event.rb",
+    "lib/ur/product/related_product_id.rb",
     "lib/ur/product/storage.rb",
     "lib/ur/search.rb",
     "features/product.feature",

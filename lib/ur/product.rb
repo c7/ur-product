@@ -15,7 +15,8 @@ module UR
                 :main_title, :remainder_of_title, :producing_company,
                 :created_at, :modified_at, :format, :duration, :aspect_ratio,
                 :product_type, :product_sub_type, :typical_age_ranges, 
-                :publication_date, :storages, :distribution_events, :sab, :sao
+                :publication_date, :storages, :distribution_events, :sab, :sao,
+                :related_product_ids
     
     def initialize(data)
       product_data = data.include?('product') ? data['product'] : data
@@ -119,8 +120,9 @@ module UR
       
       # Handle the data structures
       [
-        ['distributionevent', 'distribution_events', DistributionEvent],
-        ['storage', 'storages', Storage]
+        ['distributionevent', 'distribution_events', UR::Product::DistributionEvent],
+        ['storage', 'storages', UR::Product::Storage],
+        ['relation_haspart', 'related_product_ids', UR::Product::RelatedProductId],
       ].each do |name, variable, structure_class|
         data = product_data[name]
         instance_variable_set("@#{variable}", (!data.nil? && data.size > 0) ? 
