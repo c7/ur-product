@@ -2,8 +2,8 @@ require 'rubygems'
 require 'lib/ur-product'
 
 results = UR::Product.search({
-  :queries => 'Antarktis',
-  :filters => { :search_product_type => 'programtv' },
+  :queries => 'lärarhandledning',
+  :filters => { :search_product_type => 'packageseries' },
   :page => 1,
   :per_page => 1
 })
@@ -29,4 +29,19 @@ if results.ok?
   puts "  -> Distribution: #{p.distribution_events.map { |e| e.platform }.join(', ')}" if p.has_distribution_events?
   puts "  -> Lagring: #{p.storages.map { |s| s.storage_format }.join(', ')}" if p.has_storages?
   puts "  -> Andra stora bilden: #{p.image_url(2, '_l')}" if p.has_image?(2, '_l')
+
+
+  p = UR::Product.find(106485)
+  if p.has_documents?
+    puts p.documents.first.storages.first.location
+  end
+  
+  p = UR::Product.find(143664)
+  puts p.url
+  
+  
+  p = UR::Product.find(140502)
+  puts p.url
+  puts p.related_product_ids
+  
 end
