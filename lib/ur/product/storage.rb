@@ -1,7 +1,7 @@
 module UR
   class Product
     class Storage
-      attr_reader :ordernumber, :compatible, :storage_type, 
+      attr_reader :order_number, :compatible, :storage_type, 
                   :storage_format, :location, :storage_kind
   
       def initialize(data)
