@@ -15,8 +15,8 @@ module UR
                 :main_title, :remainder_of_title, :producing_company,
                 :created_at, :modified_at, :format, :duration, :aspect_ratio,
                 :product_type, :product_sub_type, :typical_age_ranges, 
-                :publication_date, :storages, :distribution_events, :sab, :sao,
-                :related_product_ids
+                :publication_date, :storages, :distribution_events, :difficulty, 
+                :sli, :sli_sub, :sab, :sao, :related_product_ids
     
     def initialize(data)
       product_data = data.include?('product') ? data['product'] : data
@@ -25,8 +25,8 @@ module UR
       
       self.class.define_boolean_methods([
         'distribution_events', 'storages', 'typical_age_ranges', 'languages',
-        'duration', 'difficulty', 'producing_company', 'obsolete_order_id',
-        'sab', 'sao'
+        'duration', 'difficulty', 'producing_company', 'production_year', 
+        'obsolete_order_id', 'sli', 'sli_sub', 'sab', 'sao'
       ])
       self.class.define_relation_boolean_methods([
         'siblings', 'packageseries', 'packageusageseries', 'website', 
@@ -50,7 +50,7 @@ module UR
       names.each do |name|
         define_method("has_#{name}?") do
           instance_variable = instance_variable_get("@#{name}")            
-          !(instance_variable.nil? || instance_variable.empty?)
+          !(instance_variable.nil? || instance_variable.to_s.empty?)
         end
       end
     end
@@ -81,7 +81,8 @@ module UR
         'created', 'modified', 'pubdate', 
         'format', 'duration', 'aspect_ratio',
         'product_type', 'product_sub_type', 
-        'typicalagerange', 'sab', 'sao'
+        'typicalagerange', 'difficulty', 
+        'sli', 'sli_sub', 'sab', 'sao'
       ]
       
       field_names = lambda do |name|
@@ -171,7 +172,7 @@ module UR
       if matched = duration.match(/^(\d\d):(\d\d):(\d\d)/)
         (full,h,m,s) = matched.to_a
         if h == '00'
-          "#{m} minuter"
+          "#{m.to_i} minuter"
         elsif h == '00' && m == '00'
           'Under en minut'
         else
