@@ -1,4 +1,4 @@
-require 'json'
+require 'yajl/json_gem'
 require 'restclient'
 
 # Module for Utbildningsradion AB (http://ur.se/)
