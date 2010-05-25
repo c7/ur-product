@@ -33,7 +33,7 @@ module UR
     end
     
     def ok?
-      !@solr.nil? && @solr.ok?
+      (!@solr.nil? && @solr && @solr.ok?)
     end
     
     def num_found
