@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = "ur-product"
-  s.version       = "0.9"
+  s.version       = "0.9.1"
   s.date          = "2010-05-25"
   s.summary       = "API wrapper for the Utbildningsradion product services"
   s.description   = "Enables searching and fetching of Utbildningsradion products"
@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   
   s.rubyforge_project = "ur-product"
   
-  s.add_dependency('json', '>= 1.2.3')
+  s.add_dependency('yajl-ruby', '>= 0.7.6')
   s.add_dependency('rsolr', '>= 0.12.1')
   s.add_dependency('rsolr-ext', '>= 0.12.0')
   s.add_dependency('rest-client', '>= 1.4.2')
