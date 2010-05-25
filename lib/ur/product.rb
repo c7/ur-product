@@ -235,5 +235,13 @@ module UR
     def has_url?
       (url)
     end
+    
+    def short_title
+      if !remainder_of_title.nil?
+        remainder_of_title
+      else
+        title
+      end
+    end
   end
 end
