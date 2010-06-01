@@ -32,3 +32,4 @@ API wrapper for the [Utbildningsradion](http://ur.se) product services.
  * [RSolr](http://github.com/mwmitchell/rsolr)
  * [RSolr-ext](http://github.com/mwmitchell/rsolr-ext)
  * [RestClient](http://github.com/archiloque/rest-client)
+ * [YAJL](http://github.com/lloyd/yajl)
