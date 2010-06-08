@@ -14,7 +14,11 @@ module UR
     end
     
     def [](product)
-      @data[product.ur_product_id.to_s]
+      if product.respond_to? :ur_product_id
+        @data[product.ur_product_id.to_s]
+      else
+        @data[product.to_s]
+      end
     end
     
     def self.search(ids)
