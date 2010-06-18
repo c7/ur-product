@@ -160,6 +160,18 @@ module UR
       @available_on_avc
     end
     
+    def broadcasts
+      return @broadcasts unless @broadcasts.nil?
+      @broadcasts = []
+      
+      distribution_events.each do |event|
+        @broadcasts << event if event.event_type == 'broadcast'
+      end
+      
+      @broadcasts = @broadcasts.sort_by { |broadcast| broadcast.start_date }
+      @broadcasts
+    end
+    
     def documents
       return @docs unless @docs.nil?
       @docs = []
