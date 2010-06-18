@@ -15,6 +15,26 @@ module UR
       def active?
         (start_date < Time.now && end_date > Time.now) ? true : false
       end
+      
+      def in_the_future?
+        Time.now < @start_date
+      end
+      
+      def translated_platform
+        translations = {
+          'dab'       => 'Digital radio',
+          'internet'  => 'Webben',
+          'k'         => 'Kunskapskanalen',
+          'p1'        => 'P1',
+          'p2'        => 'P2',
+          'p3'        => 'P3',
+          'p4'        => 'P4',
+          'svt1'      => 'SVT 1',
+          'svt2'      => 'SVT 2',
+          'svtb'      => 'Barnkanalen'
+        }
+        translations.has_key?(platform) ? translations[platform] : platform
+      end
     end
   end
 end
