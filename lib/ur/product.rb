@@ -146,6 +146,20 @@ module UR
       end
     end
     
+    def available_on_avc?
+      return @available_on_avc unless @available_on_avc.nil?
+      @available_on_avc = false
+      
+      distribution_events.each do |event|
+        if event.receiving_agent_group == 'avc'
+          @available_on_avc = event.active?
+          break
+        end
+      end
+      
+      @available_on_avc
+    end
+    
     def documents
       return @docs unless @docs.nil?
       @docs = []
