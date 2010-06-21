@@ -19,20 +19,25 @@ module UR
                 :sli, :sli_sub, :sab, :sao, :related_product_ids
     
     def initialize(data)
-      product_data = data.include?('product') ? data['product'] : data
-      relations = data.include?('relations') ? data['relations'] : []
-      populate(product_data, relations)
-      
-      self.class.define_boolean_methods([
-        'distribution_events', 'storages', 'typical_age_ranges', 'languages',
-        'duration', 'difficulty', 'producing_company', 'production_year', 
-        'obsolete_order_id', 'sli', 'sli_sub', 'sab', 'sao'
-      ])
-      self.class.define_relation_boolean_methods([
-        'siblings', 'packageseries', 'packageusageseries', 'website', 
-        'packagedvd', 'packagecd', 'programtv', 'programradio', 
-        'trailertrailer'
-      ])
+      unless !data['status'].nil? && data['status'] == 404
+        product_data = data.include?('product') ? data['product'] : data
+        relations = data.include?('relations') ? data['relations'] : []
+        populate(product_data, relations)
+        
+        self.class.define_boolean_methods([
+          'distribution_events', 'storages', 'typical_age_ranges', 'languages',
+          'duration', 'difficulty', 'producing_company', 'production_year', 
+          'obsolete_order_id', 'sli', 'sli_sub', 'sab', 'sao'
+        ])
+        self.class.define_relation_boolean_methods([
+          'siblings', 'packageseries', 'packageusageseries', 'website', 
+          'packagedvd', 'packagecd', 'programtv', 'programradio', 
+          'trailertrailer'
+        ])
+        def ok?; true; end
+      else
+        def ok?; false; end
+      end
     end
     
     def self.find(id)

@@ -44,4 +44,6 @@ if results.ok?
   puts p.url
   puts p.related_product_ids
   
+  p = UR::Product.find(129859)
+  puts "Produkt is ok?: #{p.ok?}"
 end
