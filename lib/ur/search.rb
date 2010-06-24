@@ -55,5 +55,9 @@ module UR
     def next_page
       (ok? && !@solr.docs.nil?) ? @solr.docs.next_page : 0
     end
+    
+    def current_page
+      @solr.docs.current_page
+    end
   end
 end
