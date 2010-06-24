@@ -36,6 +36,14 @@ module UR
       (!@solr.nil? && @solr && @solr.ok?)
     end
     
+    def per_page
+      (ok?) ? @solr.params['rows'].to_i : 0
+    end
+    
+    def total_pages
+      (ok? && !@solr.docs.nil?) ? @solr.docs.total_pages : 0
+    end
+    
     def num_found
       (ok?) ? @solr.response['numFound'].to_i : 0
     end
