@@ -39,11 +39,14 @@ if results.ok?
   p = UR::Product.find(143664)
   puts p.url
   
-  
   p = UR::Product.find(140502)
   puts p.url
   puts p.related_product_ids
   
   p = UR::Product.find(129859)
   puts "Produkt is ok?: #{p.ok?}"
+  
+  search_result = UR::Product.search({ :per_page => 10 })
+  puts "Hits: #{search_result.num_found}, Pages: #{search_result.total_pages}"
+  
 end
