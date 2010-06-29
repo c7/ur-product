@@ -1,3 +1,5 @@
+require 'time'
+
 # Module for Utbildningsradion AB (http://ur.se/)
 module UR
   # A product can be a tv show, a radio program or even a website
