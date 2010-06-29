@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = "ur-product"
-  s.version       = "0.9.6"
+  s.version       = "0.9.7"
   s.date          = "2010-06-29"
   s.summary       = "API wrapper for the Utbildningsradion product services"
   s.description   = "Enables searching and fetching of Utbildningsradion products"
