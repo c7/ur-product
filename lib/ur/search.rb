@@ -35,29 +35,33 @@ module UR
     def ok?
       (!@solr.nil? && @solr && @solr.ok?)
     end
-    
+  
     def per_page
       (ok?) ? @solr.params['rows'].to_i : 0
-    end
-    
-    def total_pages
-      (ok? && !@solr.docs.nil?) ? @solr.docs.total_pages : 0
     end
     
     def num_found
       (ok?) ? @solr.response['numFound'].to_i : 0
     end
     
+    ##
+    # Pagination
+    #
+    
+    def current_page
+      (!@solr.docs.nil?) ? @solr.docs.current_page : 0
+    end
+    
+    def total_pages
+      (!@solr.docs.nil?) ? @solr.docs.total_pages : 0
+    end
+    
     def previous_page
-      (ok? && !@solr.docs.nil?) ? @solr.docs.previous_page : 0
+      (current_page > 1) ? @solr.docs.previous_page : false
     end
     
     def next_page
-      (ok? && !@solr.docs.nil?) ? @solr.docs.next_page : 0
-    end
-    
-    def current_page
-      @solr.docs.current_page
+      (current_page < total_pages) ? @solr.docs.next_page : false
     end
   end
 end
