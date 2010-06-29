@@ -204,9 +204,9 @@ module UR
     def humanized_duration
       if matched = duration.match(/^(\d\d):(\d\d):(\d\d)/)
         (full,h,m,s) = matched.to_a
-        if h == '00'
+        if h == '00' && m != '00'
           "#{m.to_i} minuter"
-        elsif h == '00' && m == '00'
+        elsif h == '00'
           'Under en minut'
         else
           "#{h.to_i}:#{m}"
