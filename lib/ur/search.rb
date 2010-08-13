@@ -44,6 +44,28 @@ module UR
       (ok?) ? @solr.response['numFound'].to_i : 0
     end
     
+    def self.current_programs(per_page = 10, offset = 0, format = false, agerange = false)
+      url = "#{SEARCH_SERVICE_URL}/select?qt=current-products" +
+            "&rows=#{per_page}&start=#{offset}" +
+            "&publicstreaming=NOW" +
+            "&fq=(search_product_type:programtv" +
+            "%20OR%20search_product_type:programradio)"
+
+      if ['audio','video'].include? format
+        url += "%20AND%20format:#{format}"
+      end
+
+      url += agerange_filter(agerange)
+
+      programs = Yajl::HttpStream.get(url)
+      
+      if (programs['response']['docs'].count > 0) 
+        Product.find(programs['response']['docs'].map { |d| d['id'] })
+      else
+        []
+      end
+    end
+    
     ##
     # Pagination
     #
@@ -62,6 +84,28 @@ module UR
     
     def next_page
       (current_page < total_pages) ? @solr.docs.next_page : false
+    end
+    
+  private
+    def self.agerange_filter(agerange, prepend = '%20AND%20')
+      if ['children', 'youths', 'adults'].include? agerange
+        filter = '(typicalagerange:' + 
+        { 
+          'children' => ['preschool', 'primary0-3', 'primary4-6'],
+          'youths'   => ['primary7-9', 'secondary'],
+          'adults'   => ['schoolvux', 'komvuxgrundvux', 'teachereducation',
+                         'popularadulteducation', 'folkhighschool', 'university']
+        }[agerange].join('%20OR%20typicalagerange:') + ')'
+
+        if prepend
+          filter = prepend + filter
+        end
+
+      else
+        filter = ''
+      end
+
+      filter
     end
   end
 end
