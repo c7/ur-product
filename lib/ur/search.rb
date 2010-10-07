@@ -1,4 +1,5 @@
 require 'rsolr-ext'
+require 'yajl'
 
 # Module for Utbildningsradion AB (http://ur.se/)
 module UR  
