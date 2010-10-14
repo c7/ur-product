@@ -5,7 +5,7 @@ require 'cucumber/formatter/unicode'
 $:.unshift(File.dirname(__FILE__) + '/../../lib')
 
 # UR Product
-require 'lib/ur-product'
+require 'ur-product'
 
 Before do
  @product   = nil

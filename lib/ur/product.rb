@@ -1,10 +1,10 @@
 require 'time'
+require 'restclient'
 
 # Module for Utbildningsradion AB (http://ur.se/)
 module UR
   # A product can be a tv show, a radio program or even a website
-  class Product
-    
+  class Product    
     # Setup
     if !defined?(ASSETS_URL)
       ASSETS_URL = 'http://assets.ur.se'
@@ -18,7 +18,7 @@ module UR
                 :created_at, :modified_at, :format, :duration, :aspect_ratio,
                 :product_type, :product_sub_type, :typical_age_ranges, 
                 :publication_date, :storages, :distribution_events, :difficulty, 
-                :sli, :sli_sub, :sab, :sao, :related_product_ids
+                :sli, :sli_sub, :sab, :sao, :fao, :related_product_ids
     
     def initialize(data)
       unless !data['status'].nil? && data['status'] == 404
@@ -29,7 +29,7 @@ module UR
         self.class.define_boolean_methods([
           'distribution_events', 'storages', 'typical_age_ranges', 'languages',
           'duration', 'difficulty', 'producing_company', 'production_year', 
-          'obsolete_order_id', 'sli', 'sli_sub', 'sab', 'sao'
+          'obsolete_order_id', 'sli', 'sli_sub', 'sab', 'sao', 'fao'
         ])
         self.class.define_relation_boolean_methods([
           'siblings', 'packageseries', 'packageusageseries', 'website', 
@@ -89,7 +89,7 @@ module UR
         'format', 'duration', 'aspect_ratio',
         'product_type', 'product_sub_type', 
         'typicalagerange', 'difficulty', 
-        'sli', 'sli_sub', 'sab', 'sao'
+        'sli', 'sli_sub', 'sab', 'sao', 'fao'
       ]
       
       field_names = lambda do |name|

@@ -1,7 +1,12 @@
+lib = File.expand_path('../lib/', __FILE__)
+$:.unshift lib unless $:.include?(lib)
+
+require 'ur/version'
+
 Gem::Specification.new do |s|
   s.name          = "ur-product"
-  s.version       = "0.9.9"
-  s.date          = "2010-08-13"
+  s.version       = UR::VERSION::STRING
+  s.date          = Time.now.strftime('%Y-%m-%d')
   s.summary       = "API wrapper for the Utbildningsradion product services"
   s.description   = "Enables searching and fetching of Utbildningsradion products"
   s.has_rdoc      = false
@@ -22,6 +27,7 @@ Gem::Specification.new do |s|
     "lib/ur/product/storage.rb",
     "lib/ur/search.rb",
     "lib/ur/streaming.rb",
+    "lib/ur/version.rb",
     "features/product.feature",
     "features/support/env.rb",
     "features/step_definitions/product_steps.rb"

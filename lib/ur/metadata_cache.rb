@@ -1,5 +1,6 @@
-require 'yajl/json_gem'
-require 'restclient'
+require 'uri'
+require 'yajl'
+require 'yajl/http_stream'
 
 # Module for Utbildningsradion AB (http://ur.se/)
 module UR
@@ -30,14 +31,17 @@ module UR
         url = METADATA_PRODUCT_URL + "/#{id}.json"
       end
       
-      # Get the JSON response from the Metadata Cache
-      response = RestClient.get(url)
-      
-      # Make sure that we got a valid response
-      raise UR::InvalidResponse if response.code != 200
+      begin
+        # Get the JSON response from the Metadata Cache
+        response = Yajl::HttpStream.get(URI.parse(url))      
+      rescue Yajl::HttpStream::HttpError
+        # Raise an invalid response exception if there was 
+        # a problem with the HTTP request
+        raise UR::InvalidResponse
+      end
       
       # Return the response as a parsed JSON object
-      JSON.parse(response.body)
+      response
     end
   end
 end
