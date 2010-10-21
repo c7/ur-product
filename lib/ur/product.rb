@@ -66,7 +66,9 @@ module UR
       names.each do |name|
         define_method("has_#{name}?") do
           related_products = instance_variable_get("@related_products")
-          (!related_products.nil? && !related_products[name].nil?)
+          (!related_products.nil? && 
+            (!related_products[name].nil? && 
+              !related_products[name].to_s.empty?))
         end
       end
     end
