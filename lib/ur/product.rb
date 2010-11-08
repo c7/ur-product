@@ -255,6 +255,10 @@ module UR
       @media_id
     end
     
+    def has_media_id?
+      (media_id)
+    end
+    
     def url
       return @url unless @url.nil?
       
