@@ -249,6 +249,12 @@ module UR
       storage.empty? ? false : storage.first.location
     end
     
+    def media_id
+      @media_id ||= (get_storage_location('genericvideo') || 
+                     get_storage_location('genericaudio'))
+      @media_id
+    end
+    
     def url
       return @url unless @url.nil?
       

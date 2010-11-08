@@ -36,6 +36,8 @@ if results.ok?
     puts p.documents.first.storages.first.location
   end
   
+  puts "Bandnummer/Media ID: #{p.media_id}"
+  
   p = UR::Product.find(143664)
   puts p.url
   
