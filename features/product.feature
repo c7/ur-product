@@ -10,17 +10,17 @@ Feature: UR Product
     And it should have relations
     And it should have siblings
     And one title in siblings should be "Antarktis : Ett vittne om framtiden"
-    
+
   Scenario: Invalid ID
     Given I want the product 99991
     When I get the product it should throw "UR::InvalidProductID"
-    
+
   Scenario: Multiple products
     Given I want the products 100001 and 150423
     When I get the products
     Then the result should contain 2 products
-    And the second product should have the title "Vetenskapslandet"
-  
+    And the second product should have the title "Vetenskapslandet : Säsong 6 prg. 13"
+
   Scenario: Check if a product has an image
     Given I want the product 100001
     When I get the product
