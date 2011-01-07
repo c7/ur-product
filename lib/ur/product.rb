@@ -155,18 +155,20 @@ module UR
       end
     end
 
-    def available_on_avc?
-      return @available_on_avc unless @available_on_avc.nil?
-      @available_on_avc = false
+    def active_distribution_events
+      return @active_distribution_events unless @active_distribution_events.nil?
+
+      @active_distribution_events = {}
 
       distribution_events.each do |event|
-        if event.receiving_agent_group == 'avc'
-          @available_on_avc = event.active?
-          break
-        end
+        @active_distribution_events[event.receiving_agent_group] = event if event.active?
       end
 
-      @available_on_avc
+      @active_distribution_events
+    end
+
+    def available_on_avc?
+      !active_distribution_events['avc'].nil?
     end
 
     def broadcasts
