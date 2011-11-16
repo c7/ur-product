@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module UR
   module VERSION
     MAJOR = 1

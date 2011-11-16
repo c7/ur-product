@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'yajl/http_stream'
 
 # Module for Utbildningsradion AB (http://ur.se/)
@@ -8,11 +10,11 @@ module UR
     if !defined?(STREAMING_URL)
       STREAMING_URL = 'http://metadata.ur.se/streaming'
     end
-    
+
     def initialize(data)
       @data = data
     end
-    
+
     def [](product)
       if product.respond_to? :ur_product_id
         @data[product.ur_product_id.to_s]
@@ -20,7 +22,7 @@ module UR
         @data[product.to_s]
       end
     end
-    
+
     def self.search(ids)
       return [] if ids.empty?
       url = STREAMING_URL + '.json?ur_product_ids=' + ids.join(',')
