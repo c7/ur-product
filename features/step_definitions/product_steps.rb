@@ -1,6 +1,5 @@
 # encoding: utf-8
 # Cucumber
-require 'spec/expectations'
 require 'cucumber/formatter/unicode'
 $:.unshift(File.dirname(__FILE__) + '/../../lib')
 
@@ -39,7 +38,7 @@ end
 # Then
 
 Then /^the title should be "(.*)"/ do |title|
-  @product.title.should == title 
+  @product.title.should == title
 end
 
 Then /^it should have (.*)/ do |boolean_method|
@@ -48,11 +47,11 @@ end
 
 Then /^one (.*) in (.*) should be "(.*)"$/ do |field, method, value|
   values = []
-  
-  @product.send(method).each do |product| 
+
+  @product.send(method).each do |product|
     values << product.send(field)
   end
-  
+
   values.include?(value).should be(true)
 end
 
@@ -62,6 +61,6 @@ end
 
 Then /^the (.+) product should have the title "([^\"]*)"$/ do |index, title|
   count_translations = { 'first' => 0, 'second' => 1 }
-  
+
   @products[count_translations["#{index}"]].title.should == title
 end
