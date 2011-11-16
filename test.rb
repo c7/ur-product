@@ -1,5 +1,7 @@
+# encoding: utf-8
+
 require 'rubygems'
-require 'lib/ur-product'
+require './lib/ur-product'
 
 results = UR::Product.search({
   :queries => 'lärarhandledning',
