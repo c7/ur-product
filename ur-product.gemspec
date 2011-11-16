@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.homepage      = "http://github.com/c7/ur-product"
   s.authors       = ["Peter Hellberg"]
   s.licenses      = "MIT-LICENSE"
-  
+
   s.files         = [
     "README.markdown",
     "Rakefile",
@@ -32,11 +32,15 @@ Gem::Specification.new do |s|
     "features/support/env.rb",
     "features/step_definitions/product_steps.rb"
   ]
-  
+
   s.rubyforge_project = "ur-product"
-  
-  s.add_dependency('yajl-ruby', '>= 0.7.6')
-  s.add_dependency('rsolr', '>= 0.12.1')
-  s.add_dependency('rsolr-ext', '>= 0.12.0')
-  s.add_dependency('rest-client', '>= 1.4.2')
+
+  s.add_dependency('yajl-ruby', '~> 0.7')
+  s.add_dependency('rsolr', '~> 0.12')
+  s.add_dependency('rsolr-ext', '~> 0.12')
+  s.add_dependency('rest-client', '~> 1.6')
+
+  s.add_development_dependency('cucumber', '~> 1.1')
+  s.add_development_dependency('rspec', '~> 2.7')
+  s.add_development_dependency('fakeweb', '~> 1.3')
 end
