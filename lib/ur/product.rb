@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require 'time'
-require 'restclient'
+require 'rest-client'
 
 # Module for Utbildningsradion AB (http://ur.se/)
 module UR

@@ -1,6 +1,7 @@
 # encoding: utf-8
 
-require 'yajl/http_stream'
+require 'rest-client'
+require 'yajl'
 
 # Module for Utbildningsradion AB (http://ur.se/)
 module UR
@@ -26,7 +27,7 @@ module UR
     def self.search(ids)
       return [] if ids.empty?
       url = STREAMING_URL + '.json?ur_product_ids=' + ids.join(',')
-      Streaming.new(Yajl::HttpStream.get(url))
+      Streaming.new(Yajl::Parser.parse(RestClient.get(url)))
     end
   end
 end

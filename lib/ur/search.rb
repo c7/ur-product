@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require 'rsolr-ext'
+require 'rest-client'
 require 'yajl'
 
 # Module for Utbildningsradion AB (http://ur.se/)
@@ -60,10 +61,11 @@ module UR
 
       url += agerange_filter(agerange)
 
-      programs = Yajl::HttpStream.get(url)
+      response = RestClient.get(url)
+      json = Yajl::Parser.parse(response)
 
-      if (programs['response']['docs'].count > 0)
-        Product.find(programs['response']['docs'].map { |d| d['id'] })
+      if (json['response']['docs'].count > 0)
+        Product.find(json['response']['docs'].map { |d| d['id'] })
       else
         []
       end
