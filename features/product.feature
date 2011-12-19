@@ -25,3 +25,7 @@ Feature: UR Product
     Given I want the product 100001
     When I get the product
     Then it should have image
+
+  Scenario: Return list of current programs
+    When I search for current programs
+    Then the result should contain a list of products

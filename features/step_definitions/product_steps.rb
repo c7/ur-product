@@ -35,6 +35,10 @@ When /^I get the product it should throw "([^\"]*)"$/ do |exception|
   lambda { UR::Product.find(@id) }.should raise_error(exception)
 end
 
+When /^I search for current programs$/ do
+  @current_programs = UR::Search.current_programs
+end
+
 # Then
 
 Then /^the title should be "(.*)"/ do |title|
@@ -63,4 +67,12 @@ Then /^the (.+) product should have the title "([^\"]*)"$/ do |index, title|
   count_translations = { 'first' => 0, 'second' => 1 }
 
   @products[count_translations["#{index}"]].title.should == title
+end
+
+Then /^the result should contain a list of products$/ do
+  @current_programs.class.should == Array
+
+  types = @current_programs.map(&:class).uniq
+  types.length.should == 1
+  types[0].should     == UR::Product
 end
