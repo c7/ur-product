@@ -35,9 +35,9 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "ur-product"
 
-  s.add_dependency('yajl-ruby', '~> 0.7')
-  s.add_dependency('rsolr', '~> 0.12')
-  s.add_dependency('rsolr-ext', '~> 0.12')
+  s.add_dependency('yajl-ruby', '~> 1.1')
+  s.add_dependency('rsolr', '~> 1.0')
+  s.add_dependency('rsolr-ext', '~> 1.0')
   s.add_dependency('rest-client', '~> 1.6')
 
   s.add_development_dependency('cucumber', '~> 1.1')

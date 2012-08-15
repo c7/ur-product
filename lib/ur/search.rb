@@ -32,7 +32,7 @@ module UR
         # Expose the Solr response
         @solr = response
         @solr.facets.map { |f| @facets[f.name] = f.items } if @solr.facets.size > 0
-      rescue RSolr::RequestError => e
+      rescue RSolr::Error => e
       end
     end
 
